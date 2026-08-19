@@ -27,14 +27,17 @@
 
   /* The wrapper's whole job: hide script.google.com from the address bar
      behind our own domain, and fill the viewport with no browser chrome
-     of our own getting in the way. */
+     of our own getting in the way. This grants NO capability a direct
+     /exec visit wouldn't already have — every sensitive action still
+     requires a valid server-side session regardless of which frame the
+     click originated in (see the security hardening notes on
+     XFrameOptionsMode.ALLOWALL for the full reasoning). */
   #app-frame {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    /* iOS PWA: keep content clear of the notch / home indicator */
     height: 100dvh;
     border: none;
     display: block;
@@ -105,7 +108,8 @@
 
   // Register the service worker for installability (Add to Home Screen).
   // It only ever caches this shell — never anything from the Apps Script
-  // domain, so your live data is always fetched fresh.
+  // domain, so live financial data and the authenticated session are
+  // always fetched fresh, never served stale from cache.
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function () {
       navigator.serviceWorker.register('sw.js').catch(function (err) {

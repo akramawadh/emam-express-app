@@ -13,7 +13,7 @@
  * manifest, this wrapper's own HTML/CSS) so returning users get the
  * new version instead of a stale cached one.
  */
-const CACHE_VERSION = 'emam-express-shell-v4';
+const CACHE_VERSION = 'emam-express-shell-v5';
 const SHELL_FILES = [
   './index.html',
   './manifest.json',
